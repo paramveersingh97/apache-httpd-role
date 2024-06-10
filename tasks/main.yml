@@ -1,0 +1,19 @@
+---
+- name: Install Apache httpd
+  ansible.builtin.yum:
+    name: httpd
+    state: present
+    update_cache: yes
+- name: Copy file to remote location
+  ansible.builtin.copy:
+    src: files/index.html
+    dest: /var/www/html
+    owner: root
+    group: root
+    mode: '0644'  
+- name: Ensure httpd is started and enabled
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: yes
+# tasks file for httpd
